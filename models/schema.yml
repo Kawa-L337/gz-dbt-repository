@@ -11,10 +11,25 @@ sources :
     tables:
       - name: product
         identifier: raw_gz_product
+        description: product list with purchase cost associated
+        columns:
+          - name: products_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
       - name: sales
         identifier: raw_gz_sales
+        description: greenweez sales        
       - name: ship
         identifier: raw_gz_ship
+        description: all ship cost or fee related to orders_id
+        columns:
+          - name: orders_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
      
   
 
