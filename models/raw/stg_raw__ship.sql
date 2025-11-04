@@ -6,7 +6,7 @@ source as (
 
 ),
 
-renamed as (
+stg_ship as (
 
     select
         orders_id,
@@ -18,4 +18,4 @@ renamed as (
 
 )
 
-select * from renamed
+select * from stg_ship

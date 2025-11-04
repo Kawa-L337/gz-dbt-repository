@@ -30,6 +30,18 @@ sources :
             tests:
               - unique
               - not_null
-     
+models: 
+  - name: stg_sales
+    description: tables sales cleaned
+    columns:
+      - name: date_date
+        description: date or purchase
+      - name: prim_key
+      - name: orders_id
+      - name: products_id
+      - name: revenue
+      - name: quantity 
+
+
   
 
