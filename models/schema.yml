@@ -92,6 +92,7 @@ models:
     columns:
       - name: date_date
       - name: nb_of_transactions
+        description: number of transcations by day
       - name: total_revenue
       - name: average_basket
       - name: operational_margin
