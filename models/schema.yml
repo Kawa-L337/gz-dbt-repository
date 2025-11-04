@@ -1,0 +1,17 @@
+version : 2
+
+sources :
+  - name: gz_raw_data 
+    database: soy-meridian-475010-m5
+    schema: raw
+    loader: bigquery
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+    tables:
+      - name: raw_gz_product AS product
+      - name: raw_gz_sales AS sales
+      - name: raw_gz_ship AS ship
+     
+  
+
