@@ -2,7 +2,7 @@ select
 date_date,
 COUNT(orders_id) AS nb_of_transactions,
 ROUND(SUM(revenue),2) AS total_revenue,
-AVG((SUM(revenue))/(COUNT(DISTINCT(orders_id)))) AS average_basket,
+ROUND(AVG(revenue),2) AS average_basket,
 ROUND(SUM(operational_margin),2) AS operational_margin,
 ROUND(SUM(purchase_cost),2) AS total_purchase_cost,
 ROUND(SUM(shipping_fee),2) AS total_shipping_fee,
