@@ -1,0 +1,105 @@
+version : 2
+
+sources :
+  - name: raw
+    database: soy-meridian-475010-m5
+    schema: gz_raw_data
+    loader: bigquery
+    freshness:
+      warn_after: {count: 12, period: hour}
+      error_after: {count: 24, period: hour}
+    tables:
+      - name: product
+        identifier: raw_gz_product
+        description: product list with purchase cost associated
+        columns:
+          - name: products_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+      - name: sales
+        identifier: raw_gz_sales
+        description: greenweez sales        
+      - name: ship
+        identifier: raw_gz_ship
+        description: all ship cost or fee related to orders_id
+        columns:
+          - name: orders_id
+            description: primary key
+            tests:
+              - unique
+              - not_null
+models: 
+  - name: stg_raw__sales
+    description: tables sales cleaned
+    columns:
+      - name: date_date
+        description: date or purchase
+      - name: prim_key
+      - name: orders_id
+      - name: products_id
+      - name: revenue
+      - name: quantity 
+  - name: stg_raw__product
+    description: table product cleaned
+    columns:
+      - name: products_id
+      - name: purchase_cost
+  - name: stg_raw__ship
+    description: table ship cleaned
+    columns:
+      - name: orders_id
+      - name: shipping_fee
+      - name: logcost
+      - name: ship_cost
+  - name: int_sales_margin
+    description: table with margin calulation
+    columns:
+      - name: products_id
+      - name: date_date
+      - name: prim_key
+      - name: orders_id
+      - name: revenur
+      - name: quantity
+      - name: purchase_price
+      - name: purchase_cost
+      - name: margin   
+  - name: int_orders_margin
+    description: table with aggregation by orders
+    columns:
+      - name: orders_id
+      - name: date_date
+      - name: revenue
+      - name: quantity
+      - name: purchase_cost
+      - name: margin
+  - name: int_orders_operational
+    description: table with operational cost added
+    columns:
+      - name: orders_id
+      - name: date_date
+      - name: revenue
+      - name: quantity
+      - name: purchase_cost
+      - name: margin
+      - name: shipping_fee
+      - name: logcost
+      - name: ship_cost
+      - name: operational_margin
+  - name: finance_days
+    description: table with aggreagation by day for the sales team   
+    columns:
+      - name: date_date
+      - name: nb_of_transactions
+        description: number of transcations by day
+      - name: total_revenue
+      - name: average_basket
+      - name: operational_margin
+      - name: total_purchase_cost
+      - name: total_shipping_fee
+      - name: total_logcost
+      - name: total_quantity          
+
+  
+
