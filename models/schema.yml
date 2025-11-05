@@ -6,9 +6,21 @@ sources :
     schema: gz_raw_data
     loader: bigquery
     freshness:
-      warn_after: {count: 12, period: hour}
-      error_after: {count: 24, period: hour}
+      warn_after: {count: 1200, period: day}
+      error_after: {count: 2400, period: day}
     tables:
+      - name: adwords
+        identifier: raw_gz_adwords
+        description: ads data from adwords
+      - name: bing
+        identifier: raw_gz_bing
+        description: ads data from bing
+      - name: criteo 
+        identifier: raw_gz_criteo
+        description: ads data from criteo
+      - name: facebook
+        identifier: raw_gz_facebook
+        description: ads data from facebook      
       - name: product
         identifier: raw_gz_product
         description: product list with purchase cost associated
@@ -30,7 +42,7 @@ sources :
             tests:
               - unique
               - not_null
-models: 
+models:
   - name: stg_raw__sales
     description: tables sales cleaned
     columns:
@@ -100,6 +112,19 @@ models:
       - name: total_shipping_fee
       - name: total_logcost
       - name: total_quantity          
-
+  - name: int_campaigns
+    description: aggregation of ads cost from all sources
+    columns:
+      - name: date_date
+      - name: paid_source
+      - name: campaign_key
+      - name: campaign_name
+      - name: ads_cost
+      - name: impression
+      - name: click
+      - name: prim_key
+        tests:
+          - unique
+          - not_null
   
 
